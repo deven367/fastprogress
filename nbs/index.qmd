@@ -7,11 +7,11 @@ A fast and simple progress bar for Jupyter Notebook and console. Created by Sylv
 ## Install
 
 To install simply use
-```
+```sh
 pip install fastprogress
 ```
 or:
-```
+```sh
 conda install -c fastai fastprogress
 ```
 Note that this requires python 3.6 or later.
