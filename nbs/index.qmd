@@ -7,13 +7,17 @@ A fast and simple progress bar for Jupyter Notebook and console. Created by Sylv
 ## Install
 
 To install simply use
+
 ```sh
 pip install fastprogress
 ```
+
 or:
+
 ```sh
 conda install -c fastai fastprogress
 ```
+
 Note that this requires python 3.6 or later.
 
 ## Usage
@@ -21,6 +25,7 @@ Note that this requires python 3.6 or later.
 ### Example 1
 
 Here is a simple example. Each bar takes an iterator as a main argument, and we can specify the second bar is nested with the first by adding the argument `parent=mb`. We can then:
+
 - add a comment in the first bar by changing the value of `mb.main_bar.comment`
 - add a comment in the first bar by changing the value of `mb.child.comment`
 - write a line between the two bars with `mb.write('message')`
@@ -43,6 +48,7 @@ for i in mb:
 ### Example 2
 
 To add a graph that get plots as the training goes, just use the command `mb.update_graphs`. It will create the figure on its first use. Arguments are:
+
 - `graphs`: a list of graphs to be plotted (each of the form `[x,y]`)
 - `x_bounds`: the min and max values of the x axis (if `None`, it will those given by the graphs)
 - `y_bounds`: the min and max values of the y axis (if `None`, it will those given by the graphs)
