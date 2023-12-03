@@ -1,0 +1,9 @@
+project:
+  output-dir: docs
+
+website:
+  title: "fastprogress"
+  site-url: "https://fastprogress.fast.ai/"
+  description: "A nested progress with plotting options for fastai"
+  repo-branch: master
+  repo-url: "https://github.com/fastai/fastprogress/tree/master/"
