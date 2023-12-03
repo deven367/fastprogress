@@ -4,4 +4,4 @@ website:
       - index.qmd
       - 00_core.ipynb
       - 01_fastprogress.ipynb
-      - example.ipynb
+      - Example.ipynb
