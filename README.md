@@ -88,7 +88,7 @@ If the script using this is executed with a redirect to a file, only the results
 
 Here is an example that a typical machine learning training loop can use. It also demonstrates how to set `y_bounds` dynamically.
 
-```
+```python
 def plot_loss_update(epoch, epochs, mb, train_loss, valid_loss):
     """ dynamically print the loss plot during the training/validation loop.
         expects epoch to start from 1.
@@ -106,7 +106,7 @@ def plot_loss_update(epoch, epochs, mb, train_loss, valid_loss):
 
 And here is an emulation of a training loop that uses this function:
 
-```
+```python
 from fastprogress.fastprogress import master_bar, progress_bar
 from time import sleep
 import numpy as np
