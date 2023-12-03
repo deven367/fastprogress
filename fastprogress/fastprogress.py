@@ -10,6 +10,7 @@ import time,os,shutil
 from sys import stdout
 from warnings import warn
 from .core import *
+from IPython.display import clear_output, display, HTML
 
 # %% ../nbs/01_fastprogress.ipynb 4
 class ProgressBar():
@@ -27,13 +28,13 @@ class ProgressBar():
 
     def on_iter_begin(self):
         if self.master is not None: self.master.on_iter_begin()
-            
+
     def on_interrupt(self):
         if self.master is not None: self.master.on_interrupt()
-            
+
     def on_iter_end(self):
         if self.master is not None: self.master.on_iter_end()
-            
+
     def on_update(self, val, text): pass
 
     def __iter__(self):
@@ -51,7 +52,7 @@ class ProgressBar():
             raise e
 
     def update(self, val):
-        if self.last_v is None: 
+        if self.last_v is None:
             self.on_iter_begin()
             self.last_v = 0
         if val == 0:
@@ -83,20 +84,20 @@ class ProgressBar():
 
 # %% ../nbs/01_fastprogress.ipynb 9
 class MasterBar(ProgressBar):
-    def __init__(self, gen, cls, total=None): 
+    def __init__(self, gen, cls, total=None):
         self.main_bar = cls(gen, total=total, display=False, master=self)
-      
+
     def on_iter_begin(self): pass
     def on_interrupt(self):  pass
     def on_iter_end(self):   pass
     def add_child(self, child): pass
     def write(self, line):      pass
     def update_graph(self, graphs, x_bounds, y_bounds): pass
-    
+
     def __iter__(self):
         for o in self.main_bar:
             yield o
-            
+
     def update(self, val): self.main_bar.update(val)
 
 # %% ../nbs/01_fastprogress.ipynb 14
@@ -128,7 +129,7 @@ class NBProgressBar(ProgressBar):
         if not self.leave and self.display: self.out.update(HTML(''))
         self.is_active=False
         super().on_iter_end()
-        
+
     def on_update(self, val, text, interrupted=False):
         self.progress = html_progress_bar(val, self.total, text, interrupted)
         if self.display: self.out.update(HTML(self.progress))
@@ -144,7 +145,7 @@ class NBMasterBar(MasterBar):
         self.report,self.clean_on_interrupt,self.total_time = [],clean_on_interrupt,total_time
         self.inner_dict = {'pb1':self.main_bar, 'text':""}
         self.text,self.lines = "",[]
-        
+
     def on_iter_begin(self):
         self.html_code = '\n'.join([html_progress_bar(0, self.main_bar.total, ""), ""])
         display(HTML(html_progress_bar_styles))
@@ -161,7 +162,7 @@ class NBMasterBar(MasterBar):
             plt.close()
             self.graph_out.update(self.graph_fig)
         if self.text.endswith('<p>'): self.text = self.text[:-3]
-        if self.total_time: 
+        if self.total_time:
             total_time = format_time(time.time() - self.main_bar.start_t)
             self.text = f'Total time: {total_time} <p>' + self.text
         if hasattr(self, 'out'): self.out.update(HTML(self.text))
